@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COL "Tubarões" — Pólo Aquático</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --grena: #8B1A2A;
+    --grena-light: #a82035;
+    --grena-dark: #5e1019;
+    --gold: #F4C430;
+    --gold-dim: #c9a020;
+    --white: #F5F0E8;
+    --bg: #080C14;
+    --bg2: #0f1520;
+    --bg3: #161e2e;
+    --border: rgba(244,196,48,0.15);
+    --text-muted: rgba(245,240,232,0.45);
+    --shadow-grena: 0 0 40px rgba(139,26,42,0.4);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse 120% 80% at 50% 0%, #12213a 0%, var(--bg) 70%);
+  }
+
+  .hero-water {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 30% at 20% 60%, rgba(139,26,42,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 20% at 80% 40%, rgba(244,196,48,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .wave-container svg { display: block; width: 100%; }
+  .wave1 { animation: wave-move 8s ease-in-out infinite; }
+  .wave2 { animation: wave-move 12s ease-in-out infinite reverse; }
+  @keyframes wave-move {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-3%); }
+  }
+
+  .bubbles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(244,196,48,0.06);
+    border: 1px solid rgba(244,196,48,0.1);
+    animation: float-up linear infinite;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-20px) scale(1); opacity: 0; }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+    padding: 2rem;
+    animation: hero-in 1s ease both;
+  }
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── LOGO SVG ─── */
+  .logo-wrap {
+    width: 180px;
+    height: 210px;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 8px 40px rgba(139,26,42,0.7)) drop-shadow(0 0 20px rgba(244,196,48,0.3));
+    animation: logo-pulse 4s ease-in-out infinite;
+  }
+  @keyframes logo-pulse {
+    0%, 100% { filter: drop-shadow(0 8px 40px rgba(139,26,42,0.7)) drop-shadow(0 0 20px rgba(244,196,48,0.3)); }
+    50% { filter: drop-shadow(0 8px 60px rgba(139,26,42,0.9)) drop-shadow(0 0 35px rgba(244,196,48,0.5)); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+  }
+
+  .hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+  }
+  .hero-title em {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    text-transform: uppercase;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--grena), var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+    opacity: 0.5;
+    animation: scroll-bounce 2s ease-in-out infinite;
+  }
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  .scroll-cue span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); }
+  .scroll-arrow { width: 16px; height: 16px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); opacity: 0.6; }
+
+  /* ─── SECTION LAYOUT ─── */
+  section { padding: 5rem 0; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ─── ESCALÃO TABS ─── */
+  .tabs-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 7px 18px;
+    border-radius: 3px;
+    border: 1px solid rgba(244,196,48,0.2);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .tab-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .tab-btn.active {
+    background: var(--grena);
+    border-color: var(--grena);
+    color: var(--white);
+    box-shadow: 0 0 20px rgba(139,26,42,0.5);
+  }
+
+  /* ─── JOGOS SECTION ─── */
+  .jogos-section { background: var(--bg); }
+
+  .jornada-group { margin-bottom: 2.5rem; }
+  .jornada-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-left: 2px solid var(--grena);
+    padding-left: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .game-cards { display: grid; gap: 10px; }
+
+  .game-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: 90px 1fr auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+  .game-card.col-game::before { background: var(--grena); }
+  .game-card.col-game { background: rgba(139,26,42,0.08); border-color: rgba(139,26,42,0.3); }
+  .game-card:hover { border-color: rgba(244,196,48,0.3); background: var(--bg3); }
+
+  .game-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .game-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .game-time {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .game-local {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  .team-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .team-home { text-align: right; }
+  .team-away { text-align: left; }
+
+  .team-name.col { color: var(--gold); }
+
+  .score-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .score-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    min-width: 28px;
+    text-align: center;
+    color: var(--white);
+  }
+  .score-sep {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .score-pending {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 3px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+  .score-adiado {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    background: rgba(244,196,48,0.08);
+    border: 1px solid rgba(244,196,48,0.2);
+    border-radius: 3px;
+    padding: 4px 10px;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ─── CLASSIF SECTION ─── */
+  .classif-section {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    border-top: 1px solid var(--border);
+  }
+
+  .stand-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+  .stand-table thead th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .stand-table thead th:nth-child(2) { text-align: left; }
+
+  .stand-table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+  .stand-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  .stand-table tbody tr.col-row {
+    background: rgba(139,26,42,0.12);
+    border-left: 2px solid var(--grena);
+  }
+  .stand-table tbody tr.col-row:hover { background: rgba(139,26,42,0.18); }
+
+  .stand-table td {
+    padding: 0.85rem 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--white);
+  }
+  .stand-table td:nth-child(2) { text-align: left; }
+
+  .pos-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    width: 32px;
+  }
+  .pos-1 { color: var(--gold) !important; }
+  .pos-2 { color: #ccc !important; }
+  .pos-3 { color: #c87941 !important; }
+
+  .team-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .team-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .team-cell-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .pts-cell {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .gd-pos { color: #5ec97a; }
+  .gd-neg { color: #e06060; }
+  .gd-zero { color: var(--text-muted); }
+
+  /* ─── NOTE BANNER ─── */
+  .note-banner {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(244,196,48,0.06);
+    border: 1px solid rgba(244,196,48,0.15);
+    border-radius: 4px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0;
+    text-align: center;
+  }
+  .footer-logo { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+  .footer-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer-brand em { color: var(--gold); font-style: normal; }
+  .footer-copy { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+  /* ─── TEAM COLORS ─── */
+  .dot-col  { background: #2e7d32; }
+  .dot-scp  { background: #1b5e80; }
+  .dot-scpb { background: #4a90d9; }
+  .dot-slb  { background: #c62828; }
+  .dot-cwpc { background: #6a3fbf; }
+  .dot-amn  { background: #e65100; }
+  .dot-lac  { background: #ad1457; }
+
+  @media (max-width: 680px) {
+    .game-card {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 0.5rem;
+    }
+    .team-home, .team-away { text-align: left; }
+    .score-box { justify-content: flex-start; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .section-line { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-water"></div>
+
+  <!-- Bubbles -->
+  <div class="bubbles" id="bubbles"></div>
+
+  <div class="hero-inner">
+
+    <!-- COL Official Logo -->
+    <div class="logo-wrap">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/pt/a/a0/Clube_Oriental_de_Lisboa.png"
+        alt="Clube Oriental de Lisboa"
+        style="width:100%;height:100%;object-fit:contain;image-rendering:auto;"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+      />
+      <!-- SVG fallback if image fails to load -->
+      <svg style="display:none;width:100%;height:100%" viewBox="0 0 180 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M90 5 L170 35 L170 120 Q170 175 90 205 Q10 175 10 120 L10 35 Z" fill="#8B1A2A"/>
+        <path d="M90 5 L170 35 L170 120 Q170 175 90 205 Q10 175 10 120 L10 35 Z" fill="none" stroke="#F4C430" stroke-width="3"/>
+        <path d="M90 20 L155 45 L155 118 Q155 164 90 190 Q25 164 25 118 L25 45 Z" fill="#6e1422"/>
+        <path d="M25 85 L155 75 L155 100 L25 110 Z" fill="#F4C430" opacity="0.9"/>
+        <text x="90" y="110" font-family="Oswald, sans-serif" font-size="28" font-weight="700" fill="#F4C430" text-anchor="middle" dominant-baseline="middle" letter-spacing="4">COL</text>
+      </svg>
+    </div>
+
+    <p class="hero-eyebrow">Clube Oriental de Lisboa</p>
+    <h1 class="hero-title">TUBARÕES<br><em>Pólo Aquático</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Época 2025 · 2026</p>
+  </div>
+
+  <!-- Waves -->
+  <div class="wave-container">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="height:80px">
+      <path class="wave1" d="M0,40 C180,80 360,10 540,50 C720,90 900,20 1080,55 C1260,90 1380,40 1440,50 L1440,100 L0,100 Z" fill="#0f1520" opacity="0.8"/>
+      <path class="wave2" d="M0,60 C200,30 400,80 600,55 C800,30 1000,70 1200,50 C1320,40 1400,65 1440,55 L1440,100 L0,100 Z" fill="#080C14" opacity="0.9"/>
+    </svg>
+  </div>
+
+  <div class="scroll-cue">
+    <span>scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</header>
+
+<!-- ═══ PRÓXIMOS JOGOS ═══ -->
+<section class="jogos-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Calendário</p>
+        <h2 class="section-title">Próximos&nbsp;Jogos</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="tabs-row">
+      <button class="tab-btn active" data-target="jogos-s14">S14</button>
+      <button class="tab-btn" data-target="jogos-s16">S16</button>
+      <button class="tab-btn" data-target="jogos-s18">S18</button>
+      <button class="tab-btn" data-target="jogos-s20">S20</button>
+    </div>
+
+    <!-- S16 -->
+    <div class="tab-panel" id="jogos-s16">
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 7 · 3 de Maio</p>
+        <div class="game-cards">
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">3 Maio</span><span class="game-time">15:00</span><span class="game-local">CWPC</span></div>
+            <div class="team-name team-home">SCP</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">CWPC</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">3 Maio</span><span class="game-time">16:30</span><span class="game-local">Abóboda</span></div>
+            <div class="team-name team-home">SLB</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">SCP B</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 10 · 30 de Maio</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">30 Maio</span><span class="game-time">19:30</span><span class="game-local">COL</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">SCP B</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">30 Maio</span><span class="game-time">21:00</span><span class="game-local">Abóboda</span></div>
+            <div class="team-name team-home">SCP</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">SLB</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S18 -->
+    <div class="tab-panel" id="jogos-s18">
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 4 · 17 de Maio</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">17 Maio</span><span class="game-time">14:00</span><span class="game-local">COL</span></div>
+            <div class="team-name team-home">SCP</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away col">COL</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">17 Maio</span><span class="game-time">15:30</span><span class="game-local">Alvalade</span></div>
+            <div class="team-name team-home">SCP B</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">CWPC</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 2 · Data a confirmar</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">Adiado</span><span class="game-time">—</span><span class="game-local">CWPC-Abóboda</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-adiado">adiado</span></div>
+            <div class="team-name team-away">AMN</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">Adiado</span><span class="game-time">—</span><span class="game-local">SCP-Alvalade</span></div>
+            <div class="team-name team-home">SCP</div>
+            <div class="score-box"><span class="score-adiado">adiado</span></div>
+            <div class="team-name team-away">SCP B</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S14 -->
+    <div class="tab-panel active" id="jogos-s14">
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 10 · 1 de Maio</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">1 Maio</span><span class="game-time">16:00</span><span class="game-local">AMN</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">LAC</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">1 Maio</span><span class="game-time">17:30</span><span class="game-local">Alvalade</span></div>
+            <div class="team-name team-home">AMN</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">SCP</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 8 · 9 de Maio</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">9 Maio</span><span class="game-time">16:30</span><span class="game-local">COL</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">SCP</div>
+            <span></span>
+          </div>
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">9 Maio</span><span class="game-time">17:45</span><span class="game-local">Luz</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">AMN</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 9 · Data a confirmar</p>
+        <div class="game-cards">
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">Adiado</span><span class="game-time">—</span><span class="game-local">LAC</span></div>
+            <div class="team-name team-home">LAC</div>
+            <div class="score-box"><span class="score-adiado">adiado</span></div>
+            <div class="team-name team-away">SCP</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">Adiado</span><span class="game-time">—</span><span class="game-local">Luz</span></div>
+            <div class="team-name team-home">LAC</div>
+            <div class="score-box"><span class="score-adiado">adiado</span></div>
+            <div class="team-name team-away">SLB</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S20 -->
+    <div class="tab-panel" id="jogos-s20">
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 6 · 24 de Maio</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">24 Maio</span><span class="game-time">14:00</span><span class="game-local">SCP</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">CWPC</div>
+            <span></span>
+          </div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">24 Maio</span><span class="game-time">15:30</span><span class="game-local">Alvalade</span></div>
+            <div class="team-name team-home">SLB</div>
+            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="team-name team-away">SCP</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="jornada-group">
+        <p class="jornada-label">Jornada 9 · Data a confirmar</p>
+        <div class="game-cards">
+          <div class="game-card col-game">
+            <div class="game-meta"><span class="game-date">Adiado</span><span class="game-time">—</span><span class="game-local">Alvalade</span></div>
+            <div class="team-name team-home col">COL</div>
+            <div class="score-box"><span class="score-adiado">adiado</span></div>
+            <div class="team-name team-away">SCP</div>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CLASSIFICAÇÕES ═══ -->
+<section class="classif-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Temporada 2025/26</p>
+        <h2 class="section-title">Classificações</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="tabs-row">
+      <button class="tab-btn active" data-target="stand-s14">S14</button>
+      <button class="tab-btn" data-target="stand-s16">S16</button>
+      <button class="tab-btn" data-target="stand-s18">S18</button>
+      <button class="tab-btn" data-target="stand-s20">S20</button>
+    </div>
+
+    <!-- S16 standings -->
+    <div class="tab-panel" id="stand-s16">
+      <table class="stand-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Equipa</th><th>J</th><th>V</th><th>E</th><th>D</th><th>G+</th><th>G-</th><th>DG</th><th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pos-num pos-1">1</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-scp"></div><span class="team-cell-name">SCP</span></div></td>
+            <td>7</td><td>5</td><td>0</td><td>2</td><td>119</td><td>55</td><td class="gd-pos">+64</td><td class="pts-cell">15</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-2">2</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-slb"></div><span class="team-cell-name">SLB</span></div></td>
+            <td>5</td><td>4</td><td>0</td><td>1</td><td>88</td><td>33</td><td class="gd-pos">+55</td><td class="pts-cell">12</td>
+          </tr>
+          <tr class="col-row">
+            <td><span class="pos-num pos-3">3</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-col"></div><span class="team-cell-name">COL ★</span></div></td>
+            <td>7</td><td>4</td><td>0</td><td>3</td><td>72</td><td>76</td><td class="gd-neg">-4</td><td class="pts-cell">12</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">4</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-cwpc"></div><span class="team-cell-name">CWPC</span></div></td>
+            <td>7</td><td>1</td><td>1</td><td>5</td><td>52</td><td>85</td><td class="gd-neg">-33</td><td class="pts-cell">4</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">5</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-scpb"></div><span class="team-cell-name">SCP B</span></div></td>
+            <td>5</td><td>0</td><td>1</td><td>4</td><td>30</td><td>112</td><td class="gd-neg">-82</td><td class="pts-cell">1</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note-banner">Classificação calculada com base nos resultados registados (Outubro–Abril). Jogos por disputar podem alterar a tabela.</p>
+    </div>
+
+    <!-- S18 standings -->
+    <div class="tab-panel" id="stand-s18">
+      <table class="stand-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Equipa</th><th>J</th><th>V</th><th>E</th><th>D</th><th>G+</th><th>G-</th><th>DG</th><th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pos-num pos-1">1</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-scp"></div><span class="team-cell-name">SCP</span></div></td>
+            <td>4</td><td>4</td><td>0</td><td>0</td><td>92</td><td>18</td><td class="gd-pos">+74</td><td class="pts-cell">12</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-2">2</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-slb"></div><span class="team-cell-name">SLB</span></div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>23</td><td>3</td><td class="gd-pos">+20</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-2">2</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-scpb"></div><span class="team-cell-name">SCP B</span></div></td>
+            <td>2</td><td>1</td><td>0</td><td>1</td><td>22</td><td>21</td><td class="gd-pos">+1</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-2">2</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-amn"></div><span class="team-cell-name">AMN</span></div></td>
+            <td>1</td><td>1</td><td>0</td><td>0</td><td>5</td><td>4</td><td class="gd-pos">+1</td><td class="pts-cell">3</td>
+          </tr>
+          <tr class="col-row">
+            <td><span class="pos-num">5</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-col"></div><span class="team-cell-name">COL ★</span></div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>5</td><td>13</td><td class="gd-neg">-8</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">6</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-cwpc"></div><span class="team-cell-name">CWPC</span></div></td>
+            <td>3</td><td>0</td><td>0</td><td>3</td><td>9</td><td>62</td><td class="gd-neg">-53</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note-banner">Classificação parcial — 2 jogos da Jornada 2 ainda por reagendar. Muitos escalões ainda têm jornadas em aberto.</p>
+    </div>
+
+    <!-- S14 standings -->
+    <div class="tab-panel active" id="stand-s14">
+      <table class="stand-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Equipa</th><th>J</th><th>V</th><th>E</th><th>D</th><th>G+</th><th>G-</th><th>DG</th><th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pos-num pos-1">1</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-amn"></div><span class="team-cell-name">AMN</span></div></td>
+            <td>6</td><td>5</td><td>0</td><td>1</td><td>61</td><td>37</td><td class="gd-pos">+24</td><td class="pts-cell">15</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-2">2</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-slb"></div><span class="team-cell-name">SLB</span></div></td>
+            <td>5</td><td>4</td><td>0</td><td>1</td><td>62</td><td>32</td><td class="gd-pos">+30</td><td class="pts-cell">12</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-3">3</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-scp"></div><span class="team-cell-name">SCP</span></div></td>
+            <td>4</td><td>3</td><td>0</td><td>1</td><td>41</td><td>24</td><td class="gd-pos">+17</td><td class="pts-cell">9</td>
+          </tr>
+          <tr class="col-row">
+            <td><span class="pos-num">4</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-col"></div><span class="team-cell-name">COL ★</span></div></td>
+            <td>4</td><td>1</td><td>0</td><td>3</td><td>23</td><td>53</td><td class="gd-neg">-30</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">5</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-lac"></div><span class="team-cell-name">LAC</span></div></td>
+            <td>5</td><td>0</td><td>0</td><td>5</td><td>26</td><td>67</td><td class="gd-neg">-41</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note-banner">Classificação calculada com base nos resultados registados. ★ COL com jogos em atraso que podem alterar a tabela.</p>
+    </div>
+
+    <!-- S20 standings -->
+    <div class="tab-panel" id="stand-s20">
+      <table class="stand-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Equipa</th><th>J</th><th>V</th><th>E</th><th>D</th><th>G+</th><th>G-</th><th>DG</th><th>Pts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pos-num pos-1">1</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-scp"></div><span class="team-cell-name">SCP</span></div></td>
+            <td>4</td><td>4</td><td>0</td><td>0</td><td>83</td><td>20</td><td class="gd-pos">+63</td><td class="pts-cell">12</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num pos-2">2</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-slb"></div><span class="team-cell-name">SLB</span></div></td>
+            <td>4</td><td>3</td><td>0</td><td>1</td><td>53</td><td>21</td><td class="gd-pos">+32</td><td class="pts-cell">9</td>
+          </tr>
+          <tr class="col-row">
+            <td><span class="pos-num pos-3">3</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-col"></div><span class="team-cell-name">COL ★</span></div></td>
+            <td>4</td><td>1</td><td>0</td><td>3</td><td>40</td><td>49</td><td class="gd-neg">-9</td><td class="pts-cell">3</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">4</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-amn"></div><span class="team-cell-name">AMN</span></div></td>
+            <td>1</td><td>0</td><td>0</td><td>1</td><td>6</td><td>19</td><td class="gd-neg">-13</td><td class="pts-cell">0</td>
+          </tr>
+          <tr>
+            <td><span class="pos-num">5</span></td>
+            <td><div class="team-cell"><div class="team-dot dot-cwpc"></div><span class="team-cell-name">CWPC</span></div></td>
+            <td>4</td><td>0</td><td>0</td><td>4</td><td>9</td><td>82</td><td class="gd-neg">-73</td><td class="pts-cell">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note-banner">Jornada 9 (CWPC vs SLB) com resultado M — pode implicar ponto administrativo. Classificação sujeita a revisão.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">
+      <img src="https://upload.wikimedia.org/wikipedia/pt/a/a0/Clube_Oriental_de_Lisboa.png" alt="COL" style="width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.5))">
+      <div class="footer-brand">Clube <em>Oriental</em> de Lisboa · Pólo Aquático</div>
+    </div>
+    <p class="footer-copy">Época 2025/2026 &nbsp;·&nbsp; Dados com base no calendário oficial &nbsp;·&nbsp; <a href="https://oriental.pt" style="color:var(--gold);text-decoration:none">oriental.pt</a></p>
+  </div>
+</footer>
+
+<script>
+  // Bubble generator
+  const bubblesEl = document.getElementById('bubbles');
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = Math.random() * 20 + 4;
+    b.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*12+8}s;
+      animation-delay:${Math.random()*10}s;
+      opacity:${Math.random()*0.5+0.1};
+    `;
+    bubblesEl.appendChild(b);
+  }
+
+  // Tab logic (shared for both sections)
+  document.querySelectorAll('.tabs-row').forEach(row => {
+    row.addEventListener('click', e => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      const targetId = btn.dataset.target;
+      const targetPanel = document.getElementById(targetId);
+      if (!targetPanel) return;
+
+      // find sibling panels (same parent section)
+      const section = targetPanel.closest('section') || document;
+      const allBtns = row.querySelectorAll('.tab-btn');
+      const allPanels = section.querySelectorAll('.tab-panel');
+
+      allBtns.forEach(b => b.classList.remove('active'));
+      allPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      targetPanel.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
