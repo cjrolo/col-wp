@@ -511,6 +511,50 @@
 </head>
 <body>
 
+<!-- ═══ FIXED NAV ═══ -->
+<nav id="main-nav" style="
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(8,12,20,0.85);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(244,196,48,0.12);
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+">
+  <div style="max-width:1100px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;">
+    <!-- Brand -->
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="https://upload.wikimedia.org/wikipedia/pt/a/a0/Clube_Oriental_de_Lisboa.png" alt="COL" style="width:30px;height:30px;object-fit:contain;">
+      <span style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;letter-spacing:0.06em;color:#F5F0E8;text-transform:uppercase;">COL <span style="color:#F4C430">Tubarões</span></span>
+    </a>
+    <!-- Links -->
+    <div style="display:flex;gap:4px;">
+      <a href="#sec-jogos" class="nav-link">Jogos</a>
+      <a href="#sec-classif" class="nav-link">Classificação</a>
+      <a href="#sec-treinos" class="nav-link">Treinos</a>
+    </div>
+  </div>
+</nav>
+<style>
+  .nav-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.55);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 3px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-link:hover { color: #F4C430; background: rgba(244,196,48,0.07); }
+  .nav-link.active { color: #F4C430; }
+  /* Push hero down to clear fixed nav */
+  .hero { padding-top: 56px; }
+  @media (max-width: 480px) {
+    .nav-link { padding: 6px 9px; font-size: 0.78rem; }
+  }
+</style>
+
 <!-- ═══ HERO ═══ -->
 <header class="hero">
   <div class="hero-water"></div>
@@ -559,7 +603,7 @@
 </header>
 
 <!-- ═══ PRÓXIMOS JOGOS ═══ -->
-<section class="jogos-section">
+<section class="jogos-section" id="sec-jogos">
   <div class="container">
     <div class="section-header">
       <div>
@@ -623,11 +667,11 @@
       <div class="jornada-group">
         <p class="jornada-label">Jornada 4 · 17 de Maio</p>
         <div class="game-cards">
-          <div class="game-card col-game">
+          <div class="game-card">
             <div class="game-meta"><span class="game-date">17 Maio</span><span class="game-time">14:00</span><span class="game-local">COL</span></div>
-            <div class="team-name team-home">SCP</div>
+            <div class="team-name team-home">SLB</div>
             <div class="score-box"><span class="score-pending">por disputar</span></div>
-            <div class="team-name team-away col">COL</div>
+            <div class="team-name team-away">SCP</div>
             <span></span>
           </div>
           <div class="game-card">
@@ -668,7 +712,7 @@
           <div class="game-card col-game">
             <div class="game-meta"><span class="game-date">1 Maio</span><span class="game-time">16:00</span><span class="game-local">AMN</span></div>
             <div class="team-name team-home col">COL</div>
-            <div class="score-box"><span class="score-pending">por disputar</span></div>
+            <div class="score-box"><span class="score-num">11</span><span class="score-sep">×</span><span class="score-num">10</span></div>
             <div class="team-name team-away">LAC</div>
             <span></span>
           </div>
@@ -684,9 +728,9 @@
       <div class="jornada-group">
         <p class="jornada-label">Jornada 8 · 9 de Maio</p>
         <div class="game-cards">
-          <div class="game-card col-game">
-            <div class="game-meta"><span class="game-date">9 Maio</span><span class="game-time">16:30</span><span class="game-local">COL</span></div>
-            <div class="team-name team-home col">COL</div>
+          <div class="game-card">
+            <div class="game-meta"><span class="game-date">9 Maio</span><span class="game-time">16:30</span><span class="game-local">Luz</span></div>
+            <div class="team-name team-home">SLB</div>
             <div class="score-box"><span class="score-pending">por disputar</span></div>
             <div class="team-name team-away">SCP</div>
             <span></span>
@@ -703,11 +747,11 @@
       <div class="jornada-group">
         <p class="jornada-label">Jornada 9 · Data a confirmar</p>
         <div class="game-cards">
-          <div class="game-card">
+          <div class="game-card col-game">
             <div class="game-meta"><span class="game-date">Adiado</span><span class="game-time">—</span><span class="game-local">LAC</span></div>
-            <div class="team-name team-home">LAC</div>
+            <div class="team-name team-home">SCP</div>
             <div class="score-box"><span class="score-adiado">adiado</span></div>
-            <div class="team-name team-away">SCP</div>
+            <div class="team-name team-away col">COL</div>
             <span></span>
           </div>
           <div class="game-card">
@@ -728,9 +772,9 @@
         <div class="game-cards">
           <div class="game-card col-game">
             <div class="game-meta"><span class="game-date">24 Maio</span><span class="game-time">14:00</span><span class="game-local">SCP</span></div>
-            <div class="team-name team-home col">COL</div>
+            <div class="team-name team-home">CWPC</div>
             <div class="score-box"><span class="score-pending">por disputar</span></div>
-            <div class="team-name team-away">CWPC</div>
+            <div class="team-name team-away col">COL</div>
             <span></span>
           </div>
           <div class="game-card">
@@ -760,7 +804,7 @@
 </section>
 
 <!-- ═══ CLASSIFICAÇÕES ═══ -->
-<section class="classif-section">
+<section class="classif-section" id="sec-classif">
   <div class="container">
     <div class="section-header">
       <div>
@@ -887,12 +931,12 @@
           <tr class="col-row">
             <td><span class="pos-num">4</span></td>
             <td><div class="team-cell"><div class="team-dot dot-col"></div><span class="team-cell-name">COL ★</span></div></td>
-            <td>4</td><td>1</td><td>0</td><td>3</td><td>23</td><td>53</td><td class="gd-neg">-30</td><td class="pts-cell">3</td>
+            <td>5</td><td>2</td><td>0</td><td>3</td><td>34</td><td>63</td><td class="gd-neg">-29</td><td class="pts-cell">6</td>
           </tr>
           <tr>
             <td><span class="pos-num">5</span></td>
             <td><div class="team-cell"><div class="team-dot dot-lac"></div><span class="team-cell-name">LAC</span></div></td>
-            <td>5</td><td>0</td><td>0</td><td>5</td><td>26</td><td>67</td><td class="gd-neg">-41</td><td class="pts-cell">0</td>
+            <td>6</td><td>0</td><td>0</td><td>6</td><td>36</td><td>78</td><td class="gd-neg">-42</td><td class="pts-cell">0</td>
           </tr>
         </tbody>
       </table>
@@ -941,6 +985,65 @@
   </div>
 </section>
 
+<!-- ═══ TREINOS ═══ -->
+<section style="background:var(--bg);border-top:1px solid var(--border);" id="sec-treinos">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Piscina</p>
+        <h2 class="section-title">Horários de Treino</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;">
+
+      <!-- SUB-14 -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--grena);padding:0.75rem 1.25rem;display:flex;align-items:center;gap:0.75rem;">
+          <span style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:0.08em;color:#fff;text-transform:uppercase;">Sub-14</span>
+        </div>
+        <div style="padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Quarta-feira</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);">19:00</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Sábado</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);">15:15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-16, SUB-18, SUB-20 -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--grena);padding:0.75rem 1.25rem;display:flex;align-items:center;gap:0.75rem;">
+          <span style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:0.08em;color:#fff;text-transform:uppercase;">Sub-16 · Sub-18 · Sub-20</span>
+        </div>
+        <div style="padding:0.75rem 1.25rem;display:flex;flex-direction:column;gap:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Segunda-feira</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);">19:00</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Quarta-feira</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);">19:45</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Sexta-feira</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);">19:00</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);">Sábado</span>
+            <span style="font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;color:var(--gold);">13:00</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="container">
@@ -969,7 +1072,24 @@
     bubblesEl.appendChild(b);
   }
 
-  // Tab logic (shared for both sections)
+  // Scroll spy for nav
+  const sections = [
+    { id: 'sec-jogos', link: document.querySelector('a[href="#sec-jogos"]') },
+    { id: 'sec-classif', link: document.querySelector('a[href="#sec-classif"]') },
+    { id: 'sec-treinos', link: document.querySelector('a[href="#sec-treinos"]') },
+  ];
+  const navHeight = 56;
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY + navHeight + 10;
+    let current = null;
+    sections.forEach(s => {
+      const el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollY) current = s;
+    });
+    sections.forEach(s => s.link && s.link.classList.remove('active'));
+    if (current && current.link) current.link.classList.add('active');
+  }, { passive: true });
+
   document.querySelectorAll('.tabs-row').forEach(row => {
     row.addEventListener('click', e => {
       const btn = e.target.closest('.tab-btn');
